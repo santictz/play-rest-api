@@ -36,3 +36,4 @@ D:\Dev\csharp\microservices\Play.Catalog\src\Play.Catalog.Service\bin\Debug\net6
 D:\Dev\csharp\microservices\Play.Catalog\src\Play.Catalog.Service\bin\Debug\net6.0\runtimes\linux\native\libmongocrypt.so
 D:\Dev\csharp\microservices\Play.Catalog\src\Play.Catalog.Service\bin\Debug\net6.0\runtimes\osx\native\libmongocrypt.dylib
 D:\Dev\csharp\microservices\Play.Catalog\src\Play.Catalog.Service\bin\Debug\net6.0\runtimes\win\native\mongocrypt.dll
+D:\Dev\csharp\microservices\Play.Catalog\src\Play.Catalog.Service\bin\Debug\net6.0\Play.Common.dll

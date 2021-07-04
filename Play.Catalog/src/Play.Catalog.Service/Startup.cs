@@ -4,17 +4,15 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using MongoDB.Bson.Serialization;
-using MongoDB.Bson.Serialization.Serializers;
-using MongoDB.Driver;
-using Play.Catalog.Service.Repositories;
-using Play.Catalog.Service.Settings;
+using Play.Catalog.Service.Entities;
+using Play.Common.MongoDB;
+using Play.Common.Settings;
 
 namespace Play.Catalog.Service
 {
     public class Startup
     {
-        private ServiceSettings serviceSettings;
+        private readonly ServiceSettings serviceSettings;
 
         public Startup(IConfiguration configuration)
         {
@@ -26,19 +24,9 @@ namespace Play.Catalog.Service
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            BsonSerializer.RegisterSerializer(new GuidSerializer(MongoDB.Bson.BsonType.String));
-            BsonSerializer.RegisterSerializer(new DateTimeOffsetSerializer(MongoDB.Bson.BsonType.String));
-
-            serviceSettings = Configuration.GetSection(nameof(ServiceSettings)).Get<ServiceSettings>();
-
-            services.AddSingleton(service =>
-            {
-                var mongoDbSettings = Configuration.GetSection(nameof(MongoDbSettings)).Get<MongoDbSettings>();
-                var mongoClient = new MongoClient(mongoDbSettings.ConnectionString);
-                return mongoClient.GetDatabase(serviceSettings.ServiceName);
-            });
-
-            services.AddSingleton<IItemsRepository, ItemsRepository>();
+            services
+                .AddMongo()
+                .AddMongoRepository<Item>("items");
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
