@@ -7,6 +7,8 @@
     <description>Package Description</description>
     <dependencies>
       <group targetFramework="net6.0">
+        <dependency id="MassTransit.AspNetCore" version="7.2.1" exclude="Build,Analyzers" />
+        <dependency id="MassTransit.RabbitMQ" version="7.2.1" exclude="Build,Analyzers" />
         <dependency id="Microsoft.Extensions.Configuration" version="5.0.0" exclude="Build,Analyzers" />
         <dependency id="Microsoft.Extensions.Configuration.Binder" version="5.0.0" exclude="Build,Analyzers" />
         <dependency id="Microsoft.Extensions.DependencyInjection" version="5.0.1" exclude="Build,Analyzers" />

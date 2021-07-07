@@ -1,22 +1,31 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Play.Catalog.Service.Entities;
+using Play.Common.MassTransit;
 using Play.Common.MongoDB;
 
 namespace Play.Catalog.Service
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
+
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services
                 .AddMongo()
                 .AddMongoRepository<Item>("items");
-
+            services.AddMassTransitWithRabbitMq();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
